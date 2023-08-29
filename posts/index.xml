@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Vedecom Smart Charging</title>
+    <link>https://mingshi2807.github.io/posts/</link>
+    <description>Recent content in Posts on Vedecom Smart Charging</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Aug 2023 20:41:33 +0200</lastBuildDate><atom:link href="https://mingshi2807.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AC Charger Main App SW Architecture</title>
+      <link>https://mingshi2807.github.io/posts/charger/</link>
+      <pubDate>Tue, 29 Aug 2023 20:41:33 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/posts/charger/</guid>
+      <description>Software Architecture Configuration The configuration of the application is provided by the app::Config class. It contains the global, shared configuration of the application. It uses an external TOML file to read the settings that must be adapted by the end-user. If the file doesn&amp;rsquo;t exist, it is created with default values.
+An instance of this class is used by the main method.
+Logger Using the Boost Library Boost.Log is used as the logging tool.</description>
+    </item>
+    
+  </channel>
+</rss>

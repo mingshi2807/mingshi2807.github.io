@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Vedecom Smart Charging</title>
+    <link>https://mingshi2807.github.io/blog/</link>
+    <description>Recent content in Blogs on Vedecom Smart Charging</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Aug 2023 21:02:36 +0200</lastBuildDate><atom:link href="https://mingshi2807.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Second</title>
+      <link>https://mingshi2807.github.io/blog/second/</link>
+      <pubDate>Tue, 29 Aug 2023 21:02:36 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/blog/second/</guid>
+      <description>My awesome blogpost My super sweet second blog post</description>
+    </item>
+    
+    <item>
+      <title>First</title>
+      <link>https://mingshi2807.github.io/blog/first/</link>
+      <pubDate>Tue, 29 Aug 2023 16:57:42 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/blog/first/</guid>
+      <description>My awesome blogpost My super sweet first blog post</description>
+    </item>
+    
+  </channel>
+</rss>

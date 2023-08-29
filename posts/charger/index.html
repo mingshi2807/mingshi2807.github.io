@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+
+<meta property="og:title" content="AC Charger Main App SW Architecture" />
+<meta property="og:description" content="Software Architecture Configuration The configuration of the application is provided by the app::Config class. It contains the global, shared configuration of the application. It uses an external TOML file to read the settings that must be adapted by the end-user. If the file doesn&rsquo;t exist, it is created with default values.
+An instance of this class is used by the main method.
+Logger Using the Boost Library Boost.Log is used as the logging tool." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mingshi2807.github.io/posts/charger/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-29T20:41:33+02:00" />
+<meta property="article:modified_time" content="2023-08-29T20:41:33+02:00" />
+
+
+<meta name="description" content="Hardcoded description; the author should update :)" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Vedecom Smart Charging</title>
+    
+<link rel="icon" type="image/png" href="/images/favicon.png" />
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans:600,800" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/style.min.6aa298af26a10d09eb17970fc2899948574950e0cfb530b17f8a393af295fc5f.css" integrity="sha256-aqKYryahDQnrF5cPwomZSFdJUODPtTCxf4o5OvKV/F8=">
+<link rel="stylesheet" type="text/css" href="/css/icons.css">
+
+  </head>
+  <body>
+    
+    
+    <div id="preloader">
+      <div id="status"></div>
+    </div>
+    
+
+    
+
+  
+<nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/images/logos/smartcharging.svg" alt="" width="112" height="28">
+      </a>
+      <a class="navbar-item is-hidden-desktop is-hidden-tablet">
+        <div id="menu-icon-wrapper" class="menu-icon-wrapper" style="visibility: visible;">
+          <svg width="1000px" height="1000px">
+            <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+            <path class="path2" d="M 300 500 L 700 500"></path>
+            <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+          </svg>
+          <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+        </div>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+      <div id="navbar-menu" class="navbar-menu is-static">
+        <div class="navbar-start">
+          <a class="navbar-item is-hidden-mobile">
+            <div id="menu-icon-wrapper" class="menu-icon-wrapper" style="visibility: visible;">
+              <svg width="1000px" height="1000px">
+                <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+                <path class="path2" d="M 300 500 L 700 500"></path>
+                <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+              </svg>
+              <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+            </div>
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <a href="/" class="navbar-item is-secondary">
+            Product
+          </a>
+          <a href="/" class="navbar-item is-secondary">
+            Features
+          </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Enablers
+            </a>
+
+            <div class="navbar-dropdown">
+              <a href="/posts/charger" class="navbar-item">
+                Embedded communicating Power Unit
+              </a>
+              <a href="/" class="navbar-item">
+                EV / EVSE fullstack firmware
+              </a>
+              <a href="/" class="navbar-item">
+                OCPP certified supervision
+              </a>
+              <a href="/" class="navbar-item">
+                Grid integration energy services
+              </a>
+              <a href="/" class="navbar-item">
+                PnC V2G PKI mock testing
+              </a>
+              <a href="" class="navbar-item">
+                Distributed IaaS SaaS PaaS Platform
+              </a>
+            </div>
+          </div>
+          <a href="/" class="navbar-item is-secondary">
+            Demo App
+          </a>
+          <a href="/info/team" class="navbar-item is-secondary">
+            Team
+          </a>
+          <a href="/" class="navbar-item is-secondary">
+            Log in
+          </a>
+          <a href="/" class="navbar-item">
+            <span class="button signup-button rounded secondary-btn raised">
+              Sign up
+            </span>
+          </a>
+        </div>
+      </div>
+  </div>
+</nav>
+
+
+<nav id="navbar-clone" class="navbar is-fresh is-transparent" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/images/logos/smartcharging.svg" alt="" width="112" height="28">
+      </a>
+      <a class="navbar-item is-hidden-desktop is-hidden-tablet">
+        <div id="menu-icon-wrapper" class="menu-icon-wrapper" style="visibility: visible;">
+          <svg width="1000px" height="1000px">
+            <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+            <path class="path2" d="M 300 500 L 700 500"></path>
+            <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+          </svg>
+          <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+        </div>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="cloned-navbar-menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="cloned-navbar-menu" class="navbar-menu is-fixed">
+      <div class="navbar-start">
+        <a class="navbar-item is-hidden-mobile">
+          <div id="cloned-menu-icon-wrapper" class="menu-icon-wrapper" style="visibility: visible;">
+            <svg width="1000px" height="1000px">
+              <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+              <path class="path2" d="M 300 500 L 700 500"></path>
+              <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+            </svg>
+            <button id="cloned-menu-icon-trigger" class="menu-icon-trigger"></button>
+          </div>
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <a href="/" class="navbar-item is-secondary">
+          Product
+        </a>
+        <a href="/" class="navbar-item is-secondary">
+          Features
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Enablers
+          </a>
+
+          <div class="navbar-dropdown">
+            <a href="/posts/charger" class="navbar-item">
+              Embedded communicating Power Unit
+            </a>
+            <a href="/" class="navbar-item">
+              EV / EVSE fullstack firmware
+            </a>
+            <a href="/" class="navbar-item">
+              OCPP certified supervision
+            </a>
+            <a href="/" class="navbar-item">
+              Grid integration energy services
+            </a>
+            <a href="/" class="navbar-item">
+              PnC V2G PKI mock testing
+            </a>
+            <a href="" class="navbar-item">
+              Distributed IaaS SaaS PaaS Platform
+            </a>
+          </div>
+        </div>
+        <a href="/" class="navbar-item is-secondary">
+          Demo App
+        </a>
+        <a href="/info/team" class="navbar-item is-secondary">
+          Team
+        </a>
+        <a href="/" class="navbar-item is-secondary">
+          Log in
+        </a>
+        <a href="/" class="navbar-item">
+          <span class="button signup-button rounded secondary-btn raised">
+            Sign up
+          </span>
+        </a>
+      </div>
+    </div>
+</div>
+</nav>
+
+<section class="section is-medium">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title section-title">AC Charger Main App SW Architecture</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1 id="software-architecture">Software Architecture</h1>
+<h2 id="configuration">Configuration</h2>
+<p>The configuration of the application is provided by the app::Config class.
+It contains the global, shared configuration of the application.
+It uses an external <a href="https://toml.io/">TOML</a> file to read the settings that
+must be adapted by the end-user.
+If the file doesn&rsquo;t exist, it is created with default values.</p>
+<p>An instance of this class is used by the <code>main</code> method.</p>
+<h2 id="logger">Logger</h2>
+<h3 id="using-the-boost-library">Using the Boost Library</h3>
+<p><a href="https://www.boost.org/doc/libs/release/libs/log/">Boost.Log</a> is used as the
+logging tool.
+The app::log namespace defines the <em>severity</em> levels used by the
+application.
+And the app::log::init_boost_loggers method creates the <em>sinks</em>:</p>
+<ul>
+<li>A <em>console</em> sink, which can be <em>colourized</em> thanks to the <code>grcat</code> tool (see
+the <em>Usage</em> section of the <em>ReadMe</em>);</li>
+<li>A <em>file</em> sink to record all logs.
+The files are automatically rotated and named by the library.</li>
+</ul>
+<p>The <code>main</code> method creates dedicated loggers for the different parts of the
+application and hand them over to the corresponding class constructors.</p>
+<h3 id="ww-data">W&amp;W Data</h3>
+<p>A dedicated class (ww::DataLogger) is used to translate the raw data from the
+W&amp;W PU into human readable text.</p>
+<h3 id="on-the-can-bus">On the CAN Bus</h3>
+<p>To ease <em>post mortem</em> analysis, all relays-related events are sent on a CAN bus.
+The idea is to be able to record in a single file, with valid timings, all the
+energy and vehicle data.</p>
+<p>This logging is done by a can::Logger instance.</p>
+<h2 id="application-wide-signals">Application-Wide Signals</h2>
+<p>The app:Signals structure holds all the <em>signals</em> that must be shared between
+the different modules of the application.
+The purpose of this structure is to make each module independent of the others:
+it must only know about the signals it is expected to send and the signals it
+wants to listen to.</p>
+<p>This structure is provided to each module through its constructor.</p>
+<h2 id="bridges">Bridges</h2>
+<h3 id="the-15118-stack">The 15118 Stack</h3>
+<p>The ev15118::Manager class exchanges data with the remote <em>15118 Stack</em>
+application (i.e. the <code>ev-virtualizer</code>) through web-socket messages.
+An instance of web::websocket_client is created by the <code>main</code> function and
+provided through the constructor.
+This “socket” provides two signals:</p>
+<ul>
+<li>
+<p>connected:
+the WS client actively tries to re-connect after a problem;
+and the signal is called (with <em>true</em>) on every new connection to a remote stack.
+This signal is also called (with <em>false</em>) when an error is detected.</p>
+<p>This lets the Manager updates the remote side by sending its current configuration.
+So far, only the “vehicle maximum accepted power” (from CAN) is sent;
+but it is ignored by the <em>ev-virtualizer</em>!</p>
+<p>The Manager also triggers the ev15118_bridge signal.
+It is received by the BoardManager, which triggers an “Energy Stop” event in
+the main State Machine in case of disconnection;</p>
+</li>
+<li>
+<p>received:
+is called on every incoming frame.
+The messages known by the Manager are:</p>
+<ul>
+<li>
+<p><code>/charge/[01]</code>:
+triggers the ev15118_authorization signal with the corresponding boolean value.
+It is received by the BoardManager, which triggers a “Charge (boolean)”
+event in the main State Machine;</p>
+</li>
+<li>
+<p><code>/lock/[01]</code>:
+is ignored.
+The locking &amp; unlocking of the plug is done by the main State Machine;</p>
+</li>
+<li>
+<p><code>/power/{active}/{reactive}</code>:
+triggers the ev15118_power signal with the corresponding active &amp; reactive
+power values.
+The values are signed: a negative value means <em>discharge</em>.
+The signal is received by the BoardManager which updates the <em>signed</em> setpoint
+of its configuration.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>The ev15118::Manager sends the following messages to the remote <em>15118 Stack</em>:</p>
+<ul>
+<li>
+<p><code>{&quot;uri&quot;:&quot;/vehicle&quot;,&quot;action&quot;:&quot;POST&quot;,&quot;data&quot;:{&quot;max-power&quot;:XXX}}</code><br>
+with <code>XXX</code> = the “vehicle maximum accepted power”.
+Sent on WS re-connection &amp; on new value from the vehicle.
+This message is ignored by the remote side;</p>
+</li>
+<li>
+<p><code>{&quot;uri&quot;:&quot;/board&quot;,&quot;action&quot;:&quot;POST&quot;,&quot;data&quot;:{&quot;energy&quot;:0}}</code><br>
+Triggered by the <code>ev15118_stop_request</code> signal (sent by the Board Manager
+when the main State Machine calls its <code>stop_15118</code> method).
+This message is the way to request an “end of charge” from the EV:
+it emulates a change to “State B” in the 15118 Stack;</p>
+</li>
+<li>
+<p><code>{&quot;uri&quot;:&quot;/plug&quot;,&quot;action&quot;:&quot;POST&quot;,&quot;data&quot;:{&quot;PP&quot;:XXX}}</code><br>
+with <code>XXX</code> = Proximity Pilot value.
+Triggered by the <code>proximity_changed</code> signal (sent by the “GPIO Manager” when
+the PP value changes).
+Note: this signal is also used by the Board Manager to create a
+“Plugged/Unplugged” event into the main State Machine.</p>
+</li>
+<li>
+<p><code>{&quot;uri&quot;:&quot;/plug&quot;,&quot;action&quot;:&quot;POST&quot;,&quot;data&quot;:{&quot;lock&quot;:XXX}}</code><br>
+with <code>XXX</code> = lock state (GPIO relay status)
+Triggered by the <code>relay_changed</code> signal (sent by the “GPIO Manager” when a
+relay state changes).</p>
+</li>
+</ul>
+<p>On the <em>15118 Stack</em> side, these messages are processed by the <code>EVCC::ace::Ev61851Kango</code> class.
+These are the <strong>only</strong> pieces of information exchanged between the <em>main
+application</em> and the <em>EV 15118 Stack</em>!</p>
+<p>The ev15118::Manager also receives in its constructor the <em>EV CAN Bus</em> Manager.</p>
+<h3 id="the-gpio-arduino">The GPIO Arduino</h3>
+<p>The gpio::Manager exchanges data through a UART with an Arduino.</p>
+<h3 id="the-ev-can-bus">The EV CAN Bus</h3>
+<p>The can::Manager provides asynchronous handling of CAN frames from the EV.</p>
+<p>The <em>Receiver</em> part processes incoming frames.
+It detects the loss of the CAN connection with the EV.</p>
+<p>There is no <em>Sender</em> part.</p>
+<p>For the time being, this bridge is integrated into the main application.
+It should be moved into its own separate application in a future release.</p>
+<p>This manager uses the <code>CanZoe</code> classes.</p>
+<h3 id="the-ww-manager">The W&amp;W Manager</h3>
+<p>The ww::Manager connects through a ZeroMQ channel to a remote application that
+controls the W&amp;W Power-Unit.</p>
+<p>It also embeds a <em>State Machine</em> (provided by the ww::sm::power_supply class)
+that makes sure the Power-Unit is correctly started and stopped.
+This state machine uses precise timings to open and close the relay of the low
+voltage power supply (LVPS) and the DC relays.</p>
+<h2 id="the-application-state-machine">The Application State Machine</h2>
+<p>All the data from the different modules/bridges are merged together into an
+effective Charge Application by the board::Manager.</p>
+<p>This class uses a State Machine to handle the different charging scenarios.</p>
+<h2 id="asynchronous-io">Asynchronous IO</h2>
+<p>This program is mostly event-driven.
+Every time an event is received from a peer, it is processed internally and
+data are either sent back or forwarded to other remote peers.</p>
+<p>The Boost <a href="https://www.boost.org/doc/libs/release/libs/asio/">ASIO</a> library
+helps in writing concurrent code in a single-threaded environment.
+It makes the code easier to write and read, without the burden of having to
+protect against concurrent accesses and deadlocks.</p>
+<p>The produced code is quite similar to what we&rsquo;d had if we were using a
+low-level <em>Scheduler</em>.</p>
+<h3 id="asynchronous-terminal-input">Asynchronous Terminal Input</h3>
+<p>The tool::AsyncInput class applies the ASIO mechanisms to the <code>stdin</code> input
+stream.
+Every time the end-user confirms a <em>line</em> by pressing <em>Return</em>, the content is
+forwarded to the app::Console instance.</p>
+<h3 id="the-beast-networking-library">The Beast Networking Library</h3>
+<p>An embedded web server is provided by the application.
+This server provides the HTML, javascript and other files of the Web Interface.
+It also listen to M2M requests, both through HTTP and web-sockets.</p>
+
+    </div>
+  </div>
+</section>
+
+
+
+  
+
+  
+
+
+
+    
+    <div id="backtotop"><a href="#"></a></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="/js/fresh.js"></script>
+<script src="/js/jquery.panelslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+  </body>
+</html>

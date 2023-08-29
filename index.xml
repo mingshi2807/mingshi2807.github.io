@@ -5,6 +5,45 @@
     <link>https://mingshi2807.github.io/</link>
     <description>Recent content on Vedecom Smart Charging</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://mingshi2807.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Aug 2023 21:02:36 +0200</lastBuildDate><atom:link href="https://mingshi2807.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Second</title>
+      <link>https://mingshi2807.github.io/blog/second/</link>
+      <pubDate>Tue, 29 Aug 2023 21:02:36 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/blog/second/</guid>
+      <description>My awesome blogpost My super sweet second blog post</description>
+    </item>
+    
+    <item>
+      <title>AC Charger Main App SW Architecture</title>
+      <link>https://mingshi2807.github.io/posts/charger/</link>
+      <pubDate>Tue, 29 Aug 2023 20:41:33 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/posts/charger/</guid>
+      <description>Software Architecture Configuration The configuration of the application is provided by the app::Config class. It contains the global, shared configuration of the application. It uses an external TOML file to read the settings that must be adapted by the end-user. If the file doesn&amp;rsquo;t exist, it is created with default values.
+An instance of this class is used by the main method.
+Logger Using the Boost Library Boost.Log is used as the logging tool.</description>
+    </item>
+    
+    <item>
+      <title>Smart Charger Team</title>
+      <link>https://mingshi2807.github.io/info/team/</link>
+      <pubDate>Tue, 29 Aug 2023 20:40:32 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/info/team/</guid>
+      <description> System branch Software branch </description>
+    </item>
+    
+    <item>
+      <title>First</title>
+      <link>https://mingshi2807.github.io/blog/first/</link>
+      <pubDate>Tue, 29 Aug 2023 16:57:42 +0200</pubDate>
+      
+      <guid>https://mingshi2807.github.io/blog/first/</guid>
+      <description>My awesome blogpost My super sweet first blog post</description>
+    </item>
+    
   </channel>
 </rss>
